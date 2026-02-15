@@ -1,10 +1,11 @@
 import { createRoot } from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
-import Home from "./components/Home.jsx"
+import Home from './components/Home.jsx'
 import Products from "./components/Products.jsx"
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SingleProduct from './components/SingleProduct.jsx'
+
 
 let router = createBrowserRouter([
     {

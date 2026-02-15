@@ -3,6 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
+
 function Products(){
 
     const [products, setProducts] = useState([])
@@ -15,13 +16,11 @@ const getdata = async () => {
     setLoading(false)
 }
 
-console.log(products);
-
 useEffect(() => {
 getdata()
 }, [])
 
-if(loading) return <Loader classname={'flex justify-center h-screen items-center'}/>
+if(loading) return <Loader className={'flex justify-center h-screen items-center'}/>
 
     return (<>
       <div className="grid grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2 max-[400px]:grid-cols-1 max-[600px]:p-4  gap-4 rounded-lg p-8">
@@ -32,14 +31,12 @@ if(loading) return <Loader classname={'flex justify-center h-screen items-center
 
     </>)
 }
-
-
 const ProductCard = ({item}) => {
       const navigate = useNavigate()
-    return  <div onClick={() => navigate(`/products/${item.id}`)} className="group bg-slate-500 p-5 rounded-2xl">
+    return  <div onClick={() => navigate(`/products/${item.id}`)} className="group bg-slate-500 p-5 rounded-2xl mt-20 md:mt-15">
                    <img className="aspect-square object-contain p-4 group-hover:scale-90 transition-all duration-400" src={item.image} alt=""/>
 
-                   <div className="p-5">
+                   <div className="gap-2 flex flex-col items-center">
                    <h2 className="text-xl line-clamp-2 group-hover:text-blue-500">{item.title}</h2>
 
 <div className="flex gap-3 my-2 items-center">
@@ -50,6 +47,7 @@ const ProductCard = ({item}) => {
         <p>{item.rating.count}</p>
 </div>
    <p className="text-xl font-medium text-white/70">{item.price} RS.</p>
+   <button>ADD TO CARD</button>
                    </div>
 
                   </div>
