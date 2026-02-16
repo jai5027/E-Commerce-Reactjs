@@ -17,8 +17,6 @@ const getdata = async () => {
     setLoading(false)
 }
 
-console.log(product);
-
 useEffect(() => {
 getdata()
 }, [])

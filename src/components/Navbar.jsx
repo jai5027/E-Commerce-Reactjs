@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom"
 import { useState } from "react";
 import Wrapper from "./Wrapper";
+import { ShoppingCart } from "lucide-react";
 
 function Navbar(){
     
@@ -8,10 +9,10 @@ function Navbar(){
     return(<>
 
  <nav className="fixed w-full top-0 left-0 z-50
-      bg-gray-200">
+      bg-white shadow-lg">
 <Wrapper>
 
-      <div className="max-w-7xl mx-auto px-10 py-4 flex justify-between items-center">
+      <div className="px-10 py-4 flex justify-between items-center">
 
         {/* Logo */}
         <h1 className="text-2xl font-bold text-black">
@@ -19,19 +20,34 @@ function Navbar(){
         </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-8 text-b font-medium">
+        <ul className="hidden md:flex space-x-8 text-black font-medium">
           <li className="cursor-pointer"><Menu to={'/'} title={'Home'} /></li>
           <li className="cursor-pointer"><Menu to={'/products'} title={'Products'} /></li>
           <li className="cursor-pointer">About</li>
           <li className="cursor-pointer">Services</li>
           <li className="cursor-pointer">Contact</li>
         </ul>
+
 <div className="hidden md:flex flex gap-5">
-   <h1>SIGN IN</h1>
-   <h1>LOG IN</h1>
+   <button className="bg-gray-500 p-2 rounded-full"><Menu to={'/AddToCard'} title={<ShoppingCart size={20} />} />
+  
+</button>
+
+   <div className="flex gap-3">
+  
+  <button className="btn btn-error btn-sm text-white">
+  Login
+</button>
+<button className="btn btn-secondary btn-sm">
+  Sign In
+  </button>
+
+</div>
+
 </div>
 
         {/* Mobile Button */}
+
         <div className="md:hidden">
           <button
             className="text-black"
@@ -79,7 +95,7 @@ function Navbar(){
 
 
 <NavLink
-      to="/card"
+      to="/AddToCard"
       onClick={() => setOpen(false)}
       className={({ isActive }) =>
         `p-3 rounded-lg transition ${
@@ -87,7 +103,7 @@ function Navbar(){
         }`
       }
     >
-      Card
+      My Card
     </NavLink>
 
 

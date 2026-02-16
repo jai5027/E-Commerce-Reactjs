@@ -2,7 +2,7 @@ function Wrapper({children}) {
 
     return (
     
-<div className="max-w-6xl m-auto">
+<div className="max-w-7xl m-auto">
     {children}
 </div>
     
