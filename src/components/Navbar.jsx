@@ -6,6 +6,7 @@ import { ShoppingCart } from "lucide-react";
 function Navbar(){
     
     const [open, setOpen] = useState(false);
+  
     return(<>
 
  <nav className="fixed w-full top-0 left-0 z-50

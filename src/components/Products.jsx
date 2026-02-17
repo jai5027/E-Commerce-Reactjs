@@ -5,6 +5,7 @@ import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { addtoCard } from "../redux/features/AddtoCardSlice";
+import { showPopup } from "../redux/features/popupSlice";
 
 function Products(){
 
@@ -25,7 +26,7 @@ getdata()
 if(loading) return <Loader className={'flex justify-center h-screen items-center'}/>
 
     return (<>
-      <div className="grid grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2 max-[400px]:grid-cols-1 max-[600px]:p-4  gap-4 rounded-lg p-8">
+      <div className="mt-20 grid grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2 max-[400px]:grid-cols-1 max-[600px]:p-4  gap-4 rounded-lg p-8">
         {products.map((item) => {
             return <ProductCard key={item.id} item={item}/>
         })}
@@ -41,27 +42,65 @@ const AddCard = (e) => {
    e.stopPropagation()
    dispatch(addtoCard(item))
    Nav('/AddToCard')
+   dispatch(showPopup("Item added to cart"))
 }
 
       const navigate = useNavigate()
-    return  <div onClick={() => navigate(`/products/${item.id}`)} className="group border border-black bg-blue-100 p-5 rounded-2xl mt-20 md:mt-15 flex flex-col justify-between min-h-107.5 md:h-112.5">
-                   <img className="aspect-square object-contain p-4 group-hover:scale-90 transition-all duration-400" src={item.image} alt=""/>
+    return <> 
+    
+    <div 
+  onClick={() => navigate(`/products/${item.id}`)} 
+  className=" group relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between h-full"
+>
 
-                   <div className="gap-2 flex flex-col items-center">
-                   <h2 className="text-xl text-black line-clamp-2 min-h-14 group-hover:text-blue-500">{item.title}</h2>
+  {/* Image Section */}
+  <div className="bg-blue-50 p-6 flex items-center justify-center">
+    <img 
+      className="h-48 object-contain group-hover:scale-105 transition-transform duration-300" 
+      src={item.image} 
+      alt=""
+    />
+  </div>
 
-<div className="flex gap-3 my-2 items-center">
-    <p className="bg-green-600 w-fit py-1 px-3 rounded-lg flex items-center gap-1">
-        <span><IoIosStar /></span>
-        <span>{item.rating.rate}</span>
-    </p>   
-        <p>{item.rating.count}</p>
+  {/* Content Section */}
+  <div className="p-5 flex flex-col gap-3">
+
+    <h2 className="text-lg font-semibold text-gray-800 line-clamp-2 min-h-14 group-hover:text-blue-600 transition-colors duration-300">
+      {item.title}
+    </h2>
+
+    {/* Rating */}
+    <div className="flex items-center gap-3 text-sm">
+      <p className="bg-green-500 text-white px-3 py-1 rounded-lg flex items-center gap-1">
+        <IoIosStar />
+        {item.rating.rate}
+      </p>   
+      <p className="text-gray-500">({item.rating.count})</p>
+    </div>
+
+    {/* Price */}
+    <p className="text-xl font-bold text-gray-900">
+      ₹ {item.price}
+    </p>
+
+    {/* Button */}
+    <button 
+      className="hover:cursor-pointer bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-medium transition-all duration-300"
+      onClick={AddCard}
+    >
+      ADD TO CART
+    </button>
+
+     <button 
+      className="hover:cursor-pointer bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-medium transition-all duration-300"
+      
+    >
+      BUY NOW
+    </button>
+
+  </div>
 </div>
-   <p className="text-xl font-medium text-white/70">{item.price} RS.</p>
-   <button className="bg-amber-600 mt-2 px-2 rounded-sm font-medium" onClick={AddCard}>ADD TO CARD</button>
-                   </div>
-
-                  </div>
+</>
 }
 export default Products
 
