@@ -14,7 +14,10 @@ export const AddtoCardSlice = createSlice({
                     item => item.id === action.payload.id)
 
                 if(!exitItem){
-                state.cardItems.push(action.payload)
+                state.cardItems.push({
+                     ...action.payload,
+                            quantity: 1   
+                })
                 }
         },
 
@@ -22,10 +25,29 @@ export const AddtoCardSlice = createSlice({
            state.cardItems = state.cardItems.filter(
             item => item.id !== action.payload
            )
-        }
+        },
+
+        increaseQty: (state, action) => {
+      const item = state.cardItems.find(
+        item => item.id === action.payload
+      );
+      if (item) {
+        item.quantity += 1;
+      }
+    },
+
+    decreaseQty: (state, action) => {
+      const item = state.cardItems.find(
+        item => item.id === action.payload
+      );
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+      }
+    }
+
         }
 })
 
 
-export const { addtoCard, removeCard } = AddtoCardSlice.actions
+export const { addtoCard, removeCard, increaseQty, decreaseQty } = AddtoCardSlice.actions
 export default AddtoCardSlice.reducer

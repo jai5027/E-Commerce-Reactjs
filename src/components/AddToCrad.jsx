@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { IoIosStar } from "react-icons/io";
-import { removeCard } from "../redux/features/AddtoCardSlice";
+import { decreaseQty, increaseQty, removeCard } from "../redux/features/AddtoCardSlice";
 import { showPopup } from "../redux/features/popupSlice";
 
 function AddToCard() {
@@ -13,10 +13,19 @@ const RemoveCard = (item) => {
    dispatch(showPopup("Item removed from cart"))
 }
 
+if(items.length === 0) {
+  return (
+     <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-semibold text-gray-500">
+          No Items In Cart 🛒
+        </h1>
+      </div>
+  )
+}
+
     return (<>
           <div className="mt-20 grid grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2 max-[400px]:grid-cols-1 max-[600px]:p-4  gap-4 rounded-lg p-8 ">
-  
-  {items.map((item) => (<div key={item.id} className=" group relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between h-full"
+  {items.map((item) => (<div key={item.id} className="group relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between h-full"
 >
                       {/* Image Section */}
   <div className="bg-blue-50 p-6 flex items-center justify-center">
@@ -47,6 +56,31 @@ const RemoveCard = (item) => {
       ₹ {item.price}
     </p>
 
+
+        {/* 🔥 Quantity Section */}
+        <div className="flex items-center gap-3">
+
+          <button
+            onClick={() => dispatch(decreaseQty(item.id))}
+            className="bg-gray-500 px-3 py-1 rounded-lg text-lg font-bold"
+          >
+            -
+          </button>
+
+          <span className="text-lg font-semibold text-black">
+            {item.quantity}
+          </span>
+
+          <button
+            onClick={() => dispatch(increaseQty(item.id))}
+            className="bg-gray-500 px-3 py-1 rounded-lg text-lg font-bold"
+          >
+            +
+          </button>
+
+        </div>
+
+
     {/* Button */}
     <button 
       className="hover:cursor-pointer bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-medium transition-all duration-300"
@@ -61,7 +95,7 @@ const RemoveCard = (item) => {
     </button>
 
 </div>
-                      </div>
+ </div>
    ))}
                      
    </div>
