@@ -26,25 +26,50 @@ if(loading) return <Loader className={'flex justify-center h-screen items-center
 
      
     return (<>
-  <div className="group rounded-lg mt-20 md:mt-15">
-        <img className="aspect-square m-auto object-contain p-4 group-hover:scale-90 transition-all duration-400" src={product?.image} alt=""/>
+ <div className="max-w-6xl mx-auto px-6 py-10 mt-20">
 
-        <div className="p-5 flex flex-col items-center max-w-340">
-     <h2 className="text-xl line-clamp-2 group-hover:text-blue-500">{product?.title}</h2>
+  <div className="grid md:grid-cols-2 items-stretch rounded-3xl overflow-hidden shadow-2xl">
 
-<div className="flex gap-3 my-5 items-center">
-    <p className="bg-green-600 w-fit py-1 px-3 rounded-lg flex items-center gap-1">
-        <span><IoIosStar /></span>
-        <span>{product?.rating?.rate}</span>
-    </p>   
-        <p>{product?.rating?.count}</p>
-</div>
-   <p className="text-2xl font-medium text-black">{product?.price} RS.</p>
-   <div className="max-w-200 mb-5 mt-5">
-   <p>{product?.description}</p>
-   </div>
-                   </div>      
+    {/* Image Section */}
+    <div className="bg-gray-600 p-8 flex items-center justify-center group">
+      <img
+        className="w-full max-h-100 object-contain transition-transform duration-300 group-hover:scale-105"
+        src={product?.image}
+        alt={product?.title}
+      />
     </div>
+
+    {/* Text Section */}
+    <div className="bg-gray-600 text-white p-8 flex flex-col gap-6">
+
+      <h1 className="text-2xl sm:text-3xl font-bold leading-snug">
+        {product?.title}
+      </h1>
+
+      <div className="flex items-center gap-4">
+        <div className="bg-green-500 px-4 py-1 rounded-full flex items-center gap-1 text-sm">
+          <IoIosStar />
+          {product?.rating?.rate}
+        </div>
+        <p className="text-gray-300 text-sm">
+          ({product?.rating?.count})
+        </p>
+      </div>
+
+      <p className="text-3xl font-bold text-amber-400">
+        ₹ {product?.price}
+      </p>
+
+      <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
+        {product?.description}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
     </>)
 }
 

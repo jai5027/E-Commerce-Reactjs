@@ -23,6 +23,11 @@ if(items.length === 0) {
   )
 }
 
+const totalPrice = items.reduce(
+  (total, item) => total + item.price * item.quantity,
+  0
+)
+
     return (<>
           <div className="mt-20 grid grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2 max-[400px]:grid-cols-1 max-[600px]:p-4  gap-4 rounded-lg p-8 ">
   {items.map((item) => (<div key={item.id} className="group relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between h-full"
@@ -99,6 +104,50 @@ if(items.length === 0) {
    ))}
                      
    </div>
+
+{/* 🛒 CART DETAILS */}
+
+<div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10 mb-12">
+  
+  <div className="bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-3xl p-8 sm:p-10 flex flex-col gap-6 transition-all duration-300">
+
+    {/* Title */}
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center">
+      🛒 Cart Summary
+    </h1>
+
+    {/* Divider */}
+    <div className="h-px bg-gray-200 w-full"></div>
+
+    {/* Info Section */}
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-lg font-semibold text-gray-700">
+
+      <p className="flex items-center gap-2">
+        🛍 Total Items:
+        <span className="text-blue-600 text-xl">
+          {items.length}
+        </span>
+      </p>
+
+      <p className="flex items-center gap-2">
+        💰 Total Price:
+        <span className="text-green-600 text-xl font-bold">
+          ₹ {totalPrice.toFixed(2)}
+        </span>
+      </p>
+
+    </div>
+
+    {/* Order Button */}
+    <button
+      className="w-full sm:w-auto mx-auto bg-gradient-to-r from-amber-500 to-orange-500 hover:from-orange-500 hover:to-amber-500 text-white font-semibold py-3 px-12 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 active:scale-95"
+    >
+      🚀 Order Now
+    </button>
+
+  </div>
+
+</div>
 
     
     </>)

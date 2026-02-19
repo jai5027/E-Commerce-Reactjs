@@ -2,11 +2,12 @@ import { Link, NavLink } from "react-router-dom"
 import { useState } from "react";
 import Wrapper from "./Wrapper";
 import { ShoppingCart } from "lucide-react";
+import Dark from "./Dark"
+import Login from '../pages/Login'
 
 function Navbar(){
     
-  
-    const [open, setOpen] = useState(false);
+   const [open, setOpen] = useState(false);
   
     return(<>
 
@@ -14,31 +15,31 @@ function Navbar(){
       bg-white shadow-lg">
 <Wrapper>
 
-      <div className="px-10 py-4 flex justify-between items-center">
+      <div className="px-5 md:px-10 py-4 flex md:justify-between items-center justify-between">
 
         {/* Logo */}
+        
         <h1 className="text-2xl font-bold text-black">
           MyBrand
         </h1>
 
         {/* Desktop Menu */}
+        
         <ul className="hidden md:flex space-x-8 text-black font-medium">
           <li className="cursor-pointer"><Menu to={'/'} title={'Home'} /></li>
           <li className="cursor-pointer"><Menu to={'/products'} title={'Products'} /></li>
           <li className="cursor-pointer">About</li>
           <li className="cursor-pointer">Services</li>
-          <li className="cursor-pointer">Contact</li>
         </ul>
 
 <div className="hidden md:flex flex gap-5">
    <button className="bg-gray-500 p-2 rounded-full"><Menu to={'/AddToCard'} title={<ShoppingCart size={20} />} />
-  
 </button>
-
+<Dark />
    <div className="flex gap-3">
-  
+
   <button className="btn btn-error btn-sm text-white">
-  Login
+ <Menu to={'/Login'} title={<Login />} />
 </button>
 <button className="btn btn-secondary btn-sm">
   Sign In
@@ -48,16 +49,48 @@ function Navbar(){
 
 </div>
 
-        {/* Mobile Button */}
 
-        <div className="md:hidden">
-          <button
-            className="text-black"
-            onClick={() => setOpen(!open)}
-          >
-            ☰
-          </button>
-        </div>
+
+
+{/* 📱 Mobile Controls */}
+<div className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 z-50">
+
+  <div className="flex items-center gap-4 bg-white/80 backdrop-blur-lg shadow-xl px-4 py-2 rounded-full border border-gray-200">
+
+    {/* Cart Button */}
+    <button className="relative p-2 rounded-full hover:bg-gray-100 transition-all duration-300">
+      <Menu
+        to={"/AddToCard"}
+        title={<ShoppingCart size={20} className="text-gray-700" />}
+      />
+    </button>
+
+    {/* Dark Mode Toggle */}
+    <div className="p-2 rounded-full hover:bg-gray-100 transition-all duration-300">
+      <Dark />
+    </div>
+
+    {/* Menu Toggle */}
+    <button
+      onClick={() => setOpen(!open)}
+      className="p-2 rounded-full hover:bg-gray-100 transition-all duration-300 text-gray-700 text-xl"
+    >
+      ☰
+    </button>
+
+  </div>
+
+</div>
+   <div className="md:hidden flex gap-2">
+
+  <button className="btn btn-error btn-sm text-white">
+ <Menu to={'/Login'} title={<Login />} />
+</button>
+<button className="btn btn-secondary btn-sm">
+  Sign In
+  </button>
+
+</div>
       </div>
 
       {/* Mobile Menu */}
@@ -96,31 +129,7 @@ function Navbar(){
     </NavLink>
 
 
-<NavLink
-      to="/AddToCard"
-      onClick={() => setOpen(false)}
-      className={({ isActive }) =>
-        `p-3 rounded-lg transition ${
-          isActive ? "bg-pink-500/50" : "hover:bg-white/10"
-        }`
-      }
-    >
-      My Card
-    </NavLink>
 
-
-
-    <NavLink
-      to="/about"
-      onClick={() => setOpen(false)}
-      className={({ isActive }) =>
-        `p-3 rounded-lg transition ${
-          isActive ? "bg-pink-500/50" : "hover:bg-white/10"
-        }`
-      }
-    >
-      About
-    </NavLink>
 
   </div>
 )}
@@ -133,7 +142,7 @@ function Navbar(){
 
 const Menu = ({to, title}) => {
     return (
-        <NavLink className={({isActive}) => `hover:text-amber-300 font-semibold ${isActive ? 'text-amber-500' : ''}`} to={to}>{title}</NavLink>
+        <NavLink className={({isActive}) => `hover:text-amber-300 font-semibold ${isActive ? 'text-gray-4x`x00' : ''}`} to={to}>{title}</NavLink>
     )
 }
 
