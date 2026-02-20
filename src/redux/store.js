@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import addtoCard from './features/AddtoCardSlice' 
 import popupBox from './features/popupSlice'
+import checkoutReducer from './features/checkOutSlice'
 
 export const store = configureStore({
     reducer: {
         AddToCard: addtoCard,
-        PopupBox: popupBox
+        PopupBox: popupBox,
+        checkout: checkoutReducer
     }
 })
 

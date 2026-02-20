@@ -9,6 +9,8 @@ import AddToCard from './components/AddToCrad.jsx'
 import Login from './pages/Login.jsx'
 import { Provider } from 'react-redux'
 import { store } from './redux/store.js'
+import { Check } from 'lucide-react'
+import Checkout from './components/Checkout.jsx'
 
 let router = createBrowserRouter([
     {
@@ -34,6 +36,10 @@ let router = createBrowserRouter([
             {
             path: '/Login',
             element: <Login />
+            },
+            {
+            path: '/checkout/:id',
+            element: <Checkout />
             }
         ]
     }

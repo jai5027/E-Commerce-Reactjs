@@ -45,7 +45,11 @@ const AddCard = (e) => {
    dispatch(showPopup("Item added to cart"))
 }
 
-      const navigate = useNavigate()
+const BuyNow = (e) => {
+  e.stopPropagation()
+  Nav(`/checkout/${item.id}`)
+}
+ 
     return <> 
     
     <div 
@@ -93,7 +97,7 @@ const AddCard = (e) => {
 
      <button 
       className="hover:cursor-pointer bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-medium transition-all duration-300"
-      
+      onClick={BuyNow}
     >
       BUY NOW
     </button>
