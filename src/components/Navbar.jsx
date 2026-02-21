@@ -4,28 +4,31 @@ import Wrapper from "./Wrapper";
 import { ShoppingCart } from "lucide-react";
 import Dark from "./Dark"
 import Login from '../pages/Login'
+import { useSelector } from "react-redux";
 
 function Navbar(){
     
    const [open, setOpen] = useState(false);
-  
+
+   const state = useSelector(state => state.theme.them)
+
     return(<>
 
- <nav className="fixed w-full top-0 left-0 z-50
-      bg-white shadow-lg">
+ <nav className={`fixed w-full top-0 left-0 z-50
+      ${state === true ? "bg-base-100 text-white" : "bg-white text-black"} shadow-lg`}>
 <Wrapper>
 
       <div className="px-5 md:px-10 py-4 flex md:justify-between items-center justify-between">
 
         {/* Logo */}
         
-        <h1 className="text-2xl font-bold text-black">
+        <h1 className="text-2xl font-bold ">
           MyBrand
         </h1>
 
         {/* Desktop Menu */}
         
-        <ul className="hidden md:flex space-x-8 text-black font-medium">
+        <ul className="hidden md:flex space-x-8 font-medium">
           <li className="cursor-pointer"><Menu to={'/'} title={'Home'} /></li>
           <li className="cursor-pointer"><Menu to={'/products'} title={'Products'} /></li>
           <li className="cursor-pointer">About</li>
@@ -95,10 +98,10 @@ function Navbar(){
 
       {/* Mobile Menu */}
     {open && (
-  <div className="md:hidden  
+  <div className={`md:hidden  
     fixed top-0 right-0 h-screen w-1/2 
-    bg-white text-black
-    flex flex-col space-y-2 px-2 border border-black/10 shadow-2xl">
+  ${state === true ? "bg-base-100 text-white" : "bg-white text-black"}
+    flex flex-col space-y-2 px-2 border border-black/10 shadow-2xl`}>
  
 <div className="pb-7 pt-6 flex items-center justify-center">
 <h1 >My Brand</h1>
@@ -127,9 +130,6 @@ function Navbar(){
     >
       Products
     </NavLink>
-
-
-
 
   </div>
 )}

@@ -9,6 +9,7 @@ function Checkout() {
 
   const { id } = useParams();
   const dispatch = useDispatch();
+  const state = useSelector(state => state.theme.them)
 
   // ✅ Redux state
   const { formData, orderPlaced } = useSelector((state) => state.checkout);
@@ -85,8 +86,8 @@ function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-5 mt-17">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
+    <div className={`min-h-screen  ${state === true ? "bg-base-100 text-white" : "bg-white text-black"} p-5 mt-17`}>
+      <div className={`max-w-3xl mx-auto  ${state === true ? "bg-base-300 text-white" : "bg-white text-black"} shadow-md rounded-xl p-6`}>
 
         {/* 🛒 Product Summary */}
         {product && (
