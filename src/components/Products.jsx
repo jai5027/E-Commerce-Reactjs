@@ -53,7 +53,7 @@ const BuyNow = (e) => {
     return <> 
     
     <div 
-  onClick={() => navigate(`/products/${item.id}`)} 
+  onClick={() => Nav(`/products/${item.id}`)} 
   className=" group relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between h-full"
 >
 

@@ -11,7 +11,7 @@ function Navbar(){
    const [open, setOpen] = useState(false);
 
    const state = useSelector(state => state.theme.them)
-
+  
     return(<>
 
  <nav className={`fixed w-full top-0 left-0 z-50
@@ -142,7 +142,7 @@ function Navbar(){
 
 const Menu = ({to, title}) => {
     return (
-        <NavLink className={({isActive}) => `hover:text-amber-300 font-semibold ${isActive ? 'text-gray-4x`x00' : ''}`} to={to}>{title}</NavLink>
+        <NavLink className={({isActive}) => `hover:text-amber-300 font-semibold ${isActive ? 'text-amber-200' : ''}`} to={to}>{title}</NavLink>
     )
 }
 

@@ -14,6 +14,7 @@ function Checkout() {
   // ✅ Redux state
   const { formData, orderPlaced } = useSelector((state) => state.checkout);
 
+  const [paymentMethod, setPaymentMethod] = useState("cod");
   const [errors, setErrors] = useState({});
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
@@ -52,11 +53,19 @@ function Checkout() {
 
     if (!isFormValid) return;
 
-    dispatch(placeOrder());
-    alert("Order Placed Successfully 🎉");
-
-    dispatch(resetCheckout());
+    const finalOrder = {
+    ...formData,
+    paymentMethod,
+    product
   };
+
+  console.log("Final Order:", finalOrder);
+
+  dispatch(placeOrder());
+  alert(`Order Placed with ${paymentMethod.toUpperCase()} 🎉`);
+
+  dispatch(resetCheckout());
+};
 
   // ✅ Fetch Product
   const getdata = async () => {
@@ -86,7 +95,7 @@ function Checkout() {
   }
 
   return (
-    <div className={`min-h-screen  ${state === true ? "bg-base-100 text-white" : "bg-white text-black"} p-5 mt-17`}>
+    <div className={`min-h-screen  ${state === true ? "bg-base-100 text-white" : "bg-white text-black"} p-5 mt-17 mb-13`}>
       <div className={`max-w-3xl mx-auto  ${state === true ? "bg-base-300 text-white" : "bg-white text-black"} shadow-md rounded-xl p-6`}>
 
         {/* 🛒 Product Summary */}
@@ -147,6 +156,46 @@ function Checkout() {
             </div>
           ))}
 
+ {/* 💳 Payment Method */}
+<div className="md:col-span-2 mt-6">
+  <h3 className="text-lg font-semibold mb-3">Select Payment Method</h3>
+
+  <div className="space-y-3">
+    <label className="flex items-center gap-3 cursor-pointer">
+      <input
+        type="radio"
+        name="payment"
+        value="cod"
+        checked={paymentMethod === "cod"}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+      />
+      <span>Cash on Delivery</span>
+    </label>
+
+    <label className="flex items-center gap-3 cursor-pointer">
+      <input
+        type="radio"
+        name="payment"
+        value="upi"
+        checked={paymentMethod === "upi"}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+      />
+      <span>UPI</span>
+    </label>
+
+    <label className="flex items-center gap-3 cursor-pointer">
+      <input
+        type="radio"
+        name="payment"
+        value="card"
+        checked={paymentMethod === "card"}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+      />
+      <span>Credit / Debit Card</span>
+    </label>
+  </div>
+</div>
+
           <div className="md:col-span-2">
             <button
               type="submit"
@@ -161,7 +210,11 @@ function Checkout() {
               Place Order
             </button>
           </div>
+      
+      
         </form>
+
+       
       </div>
     </div>
   );

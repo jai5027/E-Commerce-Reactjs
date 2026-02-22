@@ -1,15 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getInitialFormData = () => {
+  const saved = localStorage.getItem("checkoutForm");
+  return saved
+    ? JSON.parse(saved)
+    : {
+        name: "",
+        email: "",
+        mobile: "",
+        city: "",
+        state: "",
+        pincode: "",
+        address: ""
+      };
+};
+
 const initialState = {
-  formData: {
-    name: "",
-    email: "",
-    mobile: "",
-    city: "",
-    state: "",
-    pincode: "",
-    address: ""
-  },
+  formData: getInitialFormData(),
   orderPlaced: false
 };
 
@@ -20,11 +27,9 @@ const checkoutSlice = createSlice({
 
     // ✅ Update form field
     updateForm: (state, action) => {
-      state.formData = {
-        ...state.formData,
-        ...action.payload
-      };
-    },
+  state.formData = { ...state.formData, ...action.payload };
+  localStorage.setItem("checkoutForm", JSON.stringify(state.formData));
+},
 
     // ✅ Place order
     placeOrder: (state) => {
@@ -32,7 +37,18 @@ const checkoutSlice = createSlice({
     },
 
     // ✅ Reset checkout
-    resetCheckout: () => initialState
+    resetCheckout: (state) => {
+  state.formData = {
+    name: "",
+    email: "",
+    mobile: "",
+    city: "",
+    state: "",
+    pincode: "",
+    address: ""
+  };
+  localStorage.removeItem("checkoutForm");
+}
   }
 });
 

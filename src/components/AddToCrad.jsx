@@ -2,9 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoIosStar } from "react-icons/io";
 import { decreaseQty, increaseQty, removeCard } from "../redux/features/AddtoCardSlice";
 import { showPopup } from "../redux/features/popupSlice";
+import { useNavigate } from "react-router-dom";
 
 function AddToCard() {
-
+    const Nav = useNavigate()
     const items = useSelector(state => state.AddToCard.cardItems)
     const dispatch = useDispatch()
 
@@ -12,6 +13,7 @@ const RemoveCard = (item) => {
    dispatch(removeCard(item.id))
    dispatch(showPopup("Item removed from cart"))
 }
+
 
 if(items.length === 0) {
   return (
@@ -25,9 +27,12 @@ if(items.length === 0) {
 
 const totalPrice = items.reduce(
   (total, item) => total + item.price * item.quantity,
-  0
-)
+  0)
 
+  const BuyNow = (e) => {
+  e.stopPropagation()
+  Nav(`/checkout/${items.id}`)
+}
     return (<>
           <div className="mt-20 grid grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2 max-[400px]:grid-cols-1 max-[600px]:p-4  gap-4 rounded-lg p-8 ">
   {items.map((item) => (<div key={item.id} className="group relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between h-full"
@@ -87,7 +92,7 @@ const totalPrice = items.reduce(
 
 
     {/* Button */}
-    <button 
+    <button onClick={BuyNow}
       className="hover:cursor-pointer bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-lg font-medium transition-all duration-300"
     >
       BUY NOW
